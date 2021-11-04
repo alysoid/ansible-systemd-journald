@@ -1,0 +1,2 @@
+systemd_journald: {}
+journald_cleanup: no

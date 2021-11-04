@@ -1,0 +1,30 @@
+---
+- name: Create journald.conf.d directory
+  file:
+    path: /etc/systemd/journald.conf.d
+    state: directory
+    mode: '0755'
+
+- name: Check existing configuration files
+  find:
+    paths: /etc/systemd/journald.conf.d
+    patterns: '*.conf'
+  when: journald_cleanup
+  register: existing_config
+
+- name: Remove existing configuration files
+  file:
+    path: "{{ item.path }}"
+    state: absent
+  loop: "{{ existing_config.files }}"
+  when: journald_cleanup
+  notify: Restart systemd-journald
+
+- name: Generate journal configuration files
+  template:
+    src: systemd_journald_config.j2
+    dest: "/etc/systemd/journald.conf.d/{{ item.key }}.conf"
+    owner: root
+    mode: '0644'
+  loop: "{{ systemd_journald | dict2items }}"
+  notify: Restart systemd-journald
