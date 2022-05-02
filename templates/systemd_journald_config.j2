@@ -1,13 +1,7 @@
 # {{ ansible_managed }}
 # See journald.conf(5) for details
 
-{% for config in item.value %}
-{% for section, options in config.items() %}
-[{{ section }}]
-{% for option in options %}
-{% for key, value in option.items() %}
+[Journal]
+{% for key, value in current_item.items() %}
 {{ key }}={{ value }}
-{% endfor %}
-{% endfor %}
-{% endfor %}
 {% endfor %}

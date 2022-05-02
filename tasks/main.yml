@@ -24,8 +24,10 @@
 - name: Generate journal configuration files
   ansible.builtin.template:
     src: systemd_journald_config.j2
-    dest: "/etc/systemd/journald.conf.d/{{ item.key }}.conf"
+    dest: "/etc/systemd/journald.conf.d/{{ item.name }}.conf"
     owner: root
     mode: "0644"
-  loop: "{{ systemd_journald | dict2items }}"
+  vars:
+    - current_item: "{{ item.options }}"
+  loop: "{{ systemd_journald }}"
   notify: Restart systemd-journald
