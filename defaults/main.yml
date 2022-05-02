@@ -1,3 +1,6 @@
 ---
-systemd_journald: []
-journald_cleanup: no
+# Set configuration files that control systemd-journal
+systemd_journald: {}
+
+# Remove all existing configuration files when true
+journald_cleanup: false

@@ -14,3 +14,18 @@ Manage [systemd-journald](https://man.archlinux.org/man/systemd-journald.8.en), 
 Manage [journald.conf.d - Journal service configuration files](https://man.archlinux.org/man/journald.conf.5.en).
 
 Configuration files will have the .conf extension and will be placed in the configuration snippets directory `/etc/systemd/journald.conf.d`.
+
+```yaml
+# Default
+systemd_journald: []
+
+# Example
+systemd_journald:
+  # /etc/systemd/journald.conf.d/main.conf
+  - name: main
+    options:
+      Storage: persistent
+      SystemMaxUse: 100M
+      SystemMaxFilesize: 100M
+      SystemKeepFree: 50M
+```
