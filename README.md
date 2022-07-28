@@ -4,12 +4,12 @@ Manage [systemd-journald](https://man.archlinux.org/man/systemd-journald.8.en), 
 
 ## Role default variables
 
-| Variable           | Default | Info                                                                        |
-| ------------------ | ------- | --------------------------------------------------------------------------- |
-| `systemd_journald` | `[]`    | Set configuration files that control systemd-journal.                       |
-| `journald_cleanup` | `no`    | Remove existing configuration files: `/etc/systemd/journald.conf.d/*.conf`. |
+| Variable                  | Default | Info                                                                        |
+| ------------------------- | ------- | --------------------------------------------------------------------------- |
+| `catena_journald`         | `[]`    | Set configuration files that control systemd-journal.                       |
+| `catena_journald_cleanup` | `no`    | Remove existing configuration files: `/etc/systemd/journald.conf.d/*.conf`. |
 
-### `systemd_journald`
+### `catena_journald`
 
 Manage [journald.conf.d - Journal service configuration files](https://man.archlinux.org/man/journald.conf.5.en).
 
@@ -17,10 +17,10 @@ Configuration files will have the .conf extension and will be placed in the conf
 
 ```yaml
 # Default
-systemd_journald: []
+catena_journald: []
 
 # Example
-systemd_journald:
+catena_journald:
   # /etc/systemd/journald.conf.d/main.conf
   - name: main
     options:

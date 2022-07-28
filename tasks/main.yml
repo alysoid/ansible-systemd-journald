@@ -10,7 +10,7 @@
   ansible.builtin.find:
     paths: /etc/systemd/journald.conf.d
     patterns: "*.conf"
-  when: journald_cleanup
+  when: catena_journald_cleanup
   register: existing_config
 
 - name: Remove existing configuration files
@@ -18,16 +18,16 @@
     path: "{{ item.path }}"
     state: absent
   loop: "{{ existing_config.files }}"
-  when: journald_cleanup
+  when: catena_journald_cleanup
   notify: Restart systemd-journald
 
 - name: Generate journal configuration files
   ansible.builtin.template:
-    src: systemd_journald_config.j2
+    src: journald_config.j2
     dest: "/etc/systemd/journald.conf.d/{{ item.name }}.conf"
     owner: root
     mode: "0644"
   vars:
     - current_item: "{{ item.options }}"
-  loop: "{{ systemd_journald }}"
+  loop: "{{ catena_journald }}"
   notify: Restart systemd-journald
